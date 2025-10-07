@@ -6,15 +6,17 @@
     <title>Language Atlas | Choose Your Next Language</title>
     <style>
         :root {
-            --background-color: #121212;
-            --surface-color: #1e1e1e;
-            --primary-color: #bb86fc;
-            --primary-variant-color: #3700b3;
-            --secondary-color: #03dac6;
-            --on-background-color: #e0e0e0;
+            --background-start: #1a1c22;
+            --background-end: #121317;
+            --surface-color: #23252c;
+            /* New color palette: Electric Blue & Mint */
+            --primary-color: #00aaff;
+            --primary-variant-color: #40c4ff;
+            --secondary-color: #00e0b8;
+            --on-background-color: #e2e2e5;
             --on-surface-color: #ffffff;
-            --border-color: #333333;
-            --pinned-glow: 0 0 10px rgba(3, 218, 198, 0.7);
+            --border-color: #3a3d4a;
+            --pinned-glow: 0 0 12px rgba(0, 224, 184, 0.6);
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
@@ -25,44 +27,55 @@
             padding: 0;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--background-color);
+            background: linear-gradient(135deg, var(--background-start), var(--background-end));
             color: var(--on-background-color);
             line-height: 1.6;
-            padding: 2rem;
+            padding: 1rem;
         }
 
         .container {
             max-width: 1400px;
-            margin: 0 auto;
+            margin: 2rem auto;
             padding: 2rem;
             background-color: var(--surface-color);
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 16px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
         }
 
         header {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
 
         header h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             color: var(--on-surface-color);
             font-weight: 700;
+            letter-spacing: -1px;
+            background: -webkit-linear-gradient(45deg, var(--primary-variant-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         header p {
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: var(--on-background-color);
+            margin-top: 0.5rem;
         }
         
         .controls {
             display: grid;
             grid-template-columns: 1fr;
             gap: 2rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
 
         .search-container {
@@ -71,38 +84,39 @@
 
         #searchInput {
             width: 100%;
-            padding: 0.8rem 1rem 0.8rem 2.5rem;
-            background-color: var(--background-color);
+            padding: 1rem 1.2rem 1rem 3rem;
+            background-color: var(--background-start);
             border: 1px solid var(--border-color);
-            border-radius: 8px;
+            border-radius: 10px;
             color: var(--on-surface-color);
-            font-size: 1rem;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
         }
 
         #searchInput:focus {
             outline: none;
             border-color: var(--primary-color);
-            box-shadow: 0 0 8px rgba(187, 134, 252, 0.5);
+            box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
         }
 
         .search-container::before {
             content: '🔍';
             position: absolute;
-            left: 0.8rem;
+            left: 1rem;
             top: 50%;
             transform: translateY(-50%);
             opacity: 0.6;
+            font-size: 1.2rem;
         }
 
 
         .weights {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 1.5rem;
             background-color: rgba(0,0,0,0.2);
             padding: 1.5rem;
-            border-radius: 8px;
+            border-radius: 12px;
         }
 
         .weight-control {
@@ -111,51 +125,59 @@
         }
 
         .weight-control label {
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.75rem;
             font-weight: 500;
             display: flex;
             justify-content: space-between;
         }
         
+        /* Reduced contrast for the multiplier text */
         .weight-control span {
             color: var(--secondary-color);
+            font-weight: 700;
+            opacity: 0.85; 
         }
 
         input[type="range"] {
             -webkit-appearance: none;
             appearance: none;
             width: 100%;
-            height: 6px;
+            height: 8px;
             background: var(--border-color);
             border-radius: 5px;
             outline: none;
-            transition: opacity .2s;
+            transition: background 0.3s ease;
         }
 
         input[type="range"]::-webkit-slider-thumb {
             -webkit-appearance: none;
             appearance: none;
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             background: var(--primary-color);
             cursor: pointer;
             border-radius: 50%;
-            border: 2px solid var(--surface-color);
-            box-shadow: 0 0 5px rgba(187, 134, 252, 0.7);
+            border: 3px solid var(--surface-color);
+            box-shadow: 0 0 8px rgba(0, 170, 255, 0.7);
+            transition: transform 0.2s ease;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+            transform: scale(1.1);
         }
         
         input[type="range"]::-moz-range-thumb {
-            width: 18px;
-            height: 18px;
+            width: 20px;
+            height: 20px;
             background: var(--primary-color);
             cursor: pointer;
             border-radius: 50%;
-            border: 2px solid var(--surface-color);
-            box-shadow: 0 0 5px rgba(187, 134, 252, 0.7);
+            border: 3px solid var(--surface-color);
+            box-shadow: 0 0 8px rgba(0, 170, 255, 0.7);
         }
-
+        
+        /* Removed the ugly horizontal scrollbar */
         .table-container {
-            overflow-x: auto;
+            overflow-x: hidden;
         }
 
         table {
@@ -164,7 +186,7 @@
         }
 
         th, td {
-            padding: 1rem;
+            padding: 1.2rem 1rem;
             text-align: left;
             border-bottom: 1px solid var(--border-color);
         }
@@ -175,13 +197,18 @@
             position: sticky;
             top: 0;
             background-color: var(--surface-color);
+            font-weight: 500;
+            /* Fix for header alignment */
+            vertical-align: bottom;
+            padding-bottom: 0.8rem;
         }
 
         th .sort-indicator {
             display: inline-block;
             margin-left: 5px;
-            opacity: 0.5;
+            opacity: 0.6;
             transition: opacity 0.2s;
+            width: 1em; /* Reserve space */
         }
         
         th:hover .sort-indicator {
@@ -190,65 +217,132 @@
 
         .score-dots {
             display: flex;
-            gap: 4px;
+            gap: 5px;
+            align-items: center;
         }
 
         .dot {
-            width: 12px;
-            height: 12px;
+            width: 14px;
+            height: 14px;
             border-radius: 50%;
             background-color: var(--border-color);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .dot.filled {
             background-color: var(--secondary-color);
-            box-shadow: 0 0 5px rgba(3, 218, 198, 0.5);
+            box-shadow: 0 0 6px rgba(0, 224, 184, 0.5);
         }
         
         .language-name {
-            font-weight: 500;
+            font-weight: 700;
+            font-size: 1.1rem;
             color: var(--on-surface-color);
-            min-width: 120px;
+            min-width: 140px;
         }
 
         .final-score {
             font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--primary-color);
+            font-size: 1.2rem;
+            color: var(--primary-variant-color);
         }
 
         .pin-btn {
             background: none;
             border: none;
             cursor: pointer;
-            font-size: 1.5rem;
-            opacity: 0.5;
+            font-size: 1.8rem;
+            opacity: 0.65; /* Increased default opacity */
             transition: all 0.3s ease;
+            transform-origin: center;
         }
 
         .pin-btn:hover {
             opacity: 1;
+            transform: scale(1.2);
         }
         
         tr.pinned {
-            background-color: rgba(3, 218, 198, 0.05);
+            background-color: rgba(0, 224, 184, 0.07);
             box-shadow: var(--pinned-glow);
+            border-left: 3px solid var(--secondary-color);
         }
 
         tr.pinned .pin-btn {
             opacity: 1;
             color: var(--secondary-color);
-            text-shadow: var(--pinned-glow);
         }
 
         tbody tr {
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         tbody tr:hover {
-            background-color: rgba(255, 255, 255, 0.05);
+            background-color: rgba(255, 255, 255, 0.03);
+            transform: scale(1.01);
         }
+        
+        /* --- Responsive Mobile View --- */
+        /* Triggering card view earlier to prevent horizontal scroll */
+        @media (max-width: 1024px) {
+            body { padding: 0.5rem; }
+            .container { padding: 1rem; margin: 0.5rem auto; }
+            header h1 { font-size: 2.2rem; }
+            header p { font-size: 1rem; }
+            
+            table {
+                border: 0;
+            }
+            
+            table thead {
+                display: none;
+            }
+            
+            table tr {
+                display: block;
+                margin-bottom: 1rem;
+                border-radius: 12px;
+                border: 1px solid var(--border-color);
+                background-color: var(--background-start);
+            }
+            tr.pinned {
+                border-left: none; /* remove side border on card view */
+                border-top: 3px solid var(--secondary-color);
+            }
+            
+            table td {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0.8rem 1rem;
+                text-align: right;
+                border-bottom: 1px solid var(--border-color);
+            }
+            
+            table td:last-child {
+                border-bottom: 0;
+            }
+            
+            table td::before {
+                content: attr(data-label);
+                font-weight: 500;
+                text-align: left;
+                margin-right: 1rem;
+                color: var(--on-background-color);
+            }
+            
+            .language-name-cell {
+                justify-content: center;
+                background-color: rgba(0,0,0,0.3);
+                border-radius: 11px 11px 0 0;
+                padding: 1rem;
+            }
+            
+            .language-name-cell::before {
+                display: none; /* Hide data label for header cell */
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -276,11 +370,10 @@
                         <th data-sort="name">Language <span class="sort-indicator"></span></th>
                         <th data-sort="difficulty">Difficulty <span class="sort-indicator"></span></th>
                         <th data-sort="culturalSignificance">Cultural Impact <span class="sort-indicator"></span></th>
-                        <th data-sort="literature">Literature/Philosophy <span class="sort-indicator"></span></th>
+                        <th data-sort="literature">Literature & Philosophy <span class="sort-indicator"></span></th>
                         <th data-sort="globalSpeakers">Global Speakers <span class="sort-indicator"></span></th>
                         <th data-sort="germanSpeakers">Speakers (Germany) <span class="sort-indicator"></span></th>
                         <th data-sort="economicOutput">Economic Power <span class="sort-indicator"></span></th>
-                        <th data-sort="travelOpportunity">Travel Opportunity <span class="sort-indicator"></span></th>
                         <th data-sort="onlineResources">Online Resources <span class="sort-indicator"></span></th>
                         <th data-sort="score">Final Score <span class="sort-indicator"></span></th>
                     </tr>
@@ -294,48 +387,48 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // --- DATA ---
+            // --- DATA (with adjusted cultural scores) ---
             const languages = [
-                { name: 'English', difficulty: 2, culturalSignificance: 5, literature: 5, globalSpeakers: 5, germanSpeakers: 5, economicOutput: 5, travelOpportunity: 5, onlineResources: 5 },
-                { name: 'Mandarin Chinese', difficulty: 5, culturalSignificance: 5, literature: 5, globalSpeakers: 5, germanSpeakers: 1, economicOutput: 5, travelOpportunity: 3, onlineResources: 4 },
-                { name: 'Spanish', difficulty: 2, culturalSignificance: 4, literature: 5, globalSpeakers: 4, germanSpeakers: 2, economicOutput: 4, travelOpportunity: 5, onlineResources: 5 },
-                { name: 'Hindi', difficulty: 4, culturalSignificance: 3, literature: 4, globalSpeakers: 4, germanSpeakers: 1, economicOutput: 3, travelOpportunity: 3, onlineResources: 3 },
-                { name: 'French', difficulty: 2, culturalSignificance: 5, literature: 5, globalSpeakers: 3, germanSpeakers: 3, economicOutput: 4, travelOpportunity: 5, onlineResources: 5 },
-                { name: 'Arabic', difficulty: 5, culturalSignificance: 4, literature: 4, globalSpeakers: 4, germanSpeakers: 2, economicOutput: 3, travelOpportunity: 4, onlineResources: 4 },
-                { name: 'Russian', difficulty: 4, culturalSignificance: 4, literature: 5, globalSpeakers: 3, germanSpeakers: 2, economicOutput: 3, travelOpportunity: 3, onlineResources: 4 },
-                { name: 'Bengali', difficulty: 4, culturalSignificance: 2, literature: 3, globalSpeakers: 3, germanSpeakers: 1, economicOutput: 2, travelOpportunity: 2, onlineResources: 2 },
-                { name: 'Portuguese', difficulty: 2, culturalSignificance: 3, literature: 4, globalSpeakers: 3, germanSpeakers: 1, economicOutput: 3, travelOpportunity: 4, onlineResources: 4 },
-                { name: 'German', difficulty: 2, culturalSignificance: 4, literature: 5, globalSpeakers: 2, germanSpeakers: 5, economicOutput: 5, travelOpportunity: 4, onlineResources: 5 },
-                { name: 'Japanese', difficulty: 5, culturalSignificance: 4, literature: 4, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 5, travelOpportunity: 4, onlineResources: 5 },
-                { name: 'Korean', difficulty: 5, culturalSignificance: 3, literature: 2, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 4, travelOpportunity: 3, onlineResources: 4 },
-                { name: 'Italian', difficulty: 2, culturalSignificance: 4, literature: 5, globalSpeakers: 2, germanSpeakers: 2, economicOutput: 3, travelOpportunity: 4, onlineResources: 4 },
-                { name: 'Turkish', difficulty: 4, culturalSignificance: 3, literature: 3, globalSpeakers: 2, germanSpeakers: 3, economicOutput: 3, travelOpportunity: 4, onlineResources: 3 },
-                { name: 'Dutch', difficulty: 1, culturalSignificance: 3, literature: 3, globalSpeakers: 1, germanSpeakers: 3, economicOutput: 4, travelOpportunity: 3, onlineResources: 4 },
-                { name: 'Swedish', difficulty: 2, culturalSignificance: 3, literature: 3, globalSpeakers: 1, germanSpeakers: 2, economicOutput: 4, travelOpportunity: 3, onlineResources: 4 },
-                { name: 'Polish', difficulty: 4, culturalSignificance: 3, literature: 3, globalSpeakers: 2, germanSpeakers: 2, economicOutput: 3, travelOpportunity: 3, onlineResources: 3 },
-                { name: 'Indonesian', difficulty: 2, culturalSignificance: 2, literature: 2, globalSpeakers: 3, germanSpeakers: 1, economicOutput: 2, travelOpportunity: 3, onlineResources: 3 },
-                { name: 'Persian (Farsi)', difficulty: 4, culturalSignificance: 4, literature: 5, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 2, travelOpportunity: 2, onlineResources: 3 },
-                { name: 'Greek', difficulty: 3, culturalSignificance: 5, literature: 5, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 2, travelOpportunity: 4, onlineResources: 3 },
-                { name: 'Hebrew', difficulty: 4, culturalSignificance: 4, literature: 4, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 4, travelOpportunity: 3, onlineResources: 4 },
-                { name: 'Swahili', difficulty: 3, culturalSignificance: 2, literature: 2, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 1, travelOpportunity: 4, onlineResources: 3 },
-                { name: 'Vietnamese', difficulty: 5, culturalSignificance: 2, literature: 2, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 2, travelOpportunity: 3, onlineResources: 3 },
-                { name: 'Thai', difficulty: 5, culturalSignificance: 2, literature: 2, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 2, travelOpportunity: 4, onlineResources: 3 },
-                { name: 'Norwegian', difficulty: 1, culturalSignificance: 2, literature: 3, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 4, travelOpportunity: 3, onlineResources: 4 },
-                { name: 'Danish', difficulty: 1, culturalSignificance: 2, literature: 3, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 4, travelOpportunity: 3, onlineResources: 4 },
-                { name: 'Finnish', difficulty: 5, culturalSignificance: 2, literature: 2, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 3, travelOpportunity: 3, onlineResources: 3 },
-                { name: 'Czech', difficulty: 4, culturalSignificance: 3, literature: 3, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 3, travelOpportunity: 3, onlineResources: 3 },
-                { name: 'Hungarian', difficulty: 5, culturalSignificance: 2, literature: 3, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 2, travelOpportunity: 3, onlineResources: 3 },
-                { name: 'Romanian', difficulty: 2, culturalSignificance: 2, literature: 3, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 2, travelOpportunity: 3, onlineResources: 3 },
+                { name: 'English', difficulty: 2, culturalSignificance: 5, literature: 5, globalSpeakers: 5, germanSpeakers: 5, economicOutput: 5, onlineResources: 5 },
+                { name: 'Mandarin Chinese', difficulty: 5, culturalSignificance: 5, literature: 5, globalSpeakers: 5, germanSpeakers: 1, economicOutput: 5, onlineResources: 4 },
+                { name: 'Japanese', difficulty: 5, culturalSignificance: 5, literature: 4, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 5, onlineResources: 5 },
+                { name: 'Spanish', difficulty: 2, culturalSignificance: 4, literature: 5, globalSpeakers: 4, germanSpeakers: 2, economicOutput: 4, onlineResources: 5 },
+                { name: 'French', difficulty: 2, culturalSignificance: 5, literature: 5, globalSpeakers: 3, germanSpeakers: 3, economicOutput: 4, onlineResources: 5 },
+                { name: 'German', difficulty: 2, culturalSignificance: 4, literature: 5, globalSpeakers: 2, germanSpeakers: 5, economicOutput: 5, onlineResources: 5 },
+                { name: 'Korean', difficulty: 5, culturalSignificance: 5, literature: 2, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 4, onlineResources: 4 },
+                { name: 'Arabic', difficulty: 5, culturalSignificance: 4, literature: 4, globalSpeakers: 4, germanSpeakers: 2, economicOutput: 3, onlineResources: 4 },
+                { name: 'Russian', difficulty: 4, culturalSignificance: 4, literature: 5, globalSpeakers: 3, germanSpeakers: 2, economicOutput: 3, onlineResources: 4 },
+                { name: 'Hindi', difficulty: 4, culturalSignificance: 3, literature: 4, globalSpeakers: 4, germanSpeakers: 1, economicOutput: 3, onlineResources: 3 },
+                { name: 'Italian', difficulty: 2, culturalSignificance: 4, literature: 5, globalSpeakers: 2, germanSpeakers: 2, economicOutput: 3, onlineResources: 4 },
+                { name: 'Portuguese', difficulty: 2, culturalSignificance: 3, literature: 4, globalSpeakers: 3, germanSpeakers: 1, economicOutput: 3, onlineResources: 4 },
+                { name: 'Persian (Farsi)', difficulty: 4, culturalSignificance: 4, literature: 5, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 2, onlineResources: 3 },
+                { name: 'Greek', difficulty: 3, culturalSignificance: 4, literature: 5, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 2, onlineResources: 3 },
+                { name: 'Bengali', difficulty: 4, culturalSignificance: 2, literature: 3, globalSpeakers: 3, germanSpeakers: 1, economicOutput: 2, onlineResources: 2 },
+                { name: 'Dutch', difficulty: 1, culturalSignificance: 3, literature: 3, globalSpeakers: 1, germanSpeakers: 3, economicOutput: 4, onlineResources: 4 },
+                { name: 'Turkish', difficulty: 4, culturalSignificance: 3, literature: 3, globalSpeakers: 2, germanSpeakers: 3, economicOutput: 3, onlineResources: 3 },
+                { name: 'Hebrew', difficulty: 4, culturalSignificance: 4, literature: 4, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 4, onlineResources: 4 },
+                { name: 'Swedish', difficulty: 2, culturalSignificance: 3, literature: 3, globalSpeakers: 1, germanSpeakers: 2, economicOutput: 4, onlineResources: 4 },
+                { name: 'Polish', difficulty: 4, culturalSignificance: 3, literature: 3, globalSpeakers: 2, germanSpeakers: 2, economicOutput: 3, onlineResources: 3 },
+                { name: 'Indonesian', difficulty: 2, culturalSignificance: 2, literature: 2, globalSpeakers: 3, germanSpeakers: 1, economicOutput: 2, onlineResources: 3 },
+                { name: 'Swahili', difficulty: 3, culturalSignificance: 2, literature: 2, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 1, onlineResources: 3 },
+                { name: 'Vietnamese', difficulty: 5, culturalSignificance: 2, literature: 2, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 2, onlineResources: 3 },
+                { name: 'Norwegian', difficulty: 1, culturalSignificance: 2, literature: 3, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 4, onlineResources: 4 },
+                { name: 'Thai', difficulty: 5, culturalSignificance: 2, literature: 2, globalSpeakers: 2, germanSpeakers: 1, economicOutput: 2, onlineResources: 3 },
+                { name: 'Danish', difficulty: 1, culturalSignificance: 2, literature: 3, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 4, onlineResources: 4 },
+                { name: 'Czech', difficulty: 4, culturalSignificance: 3, literature: 3, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 3, onlineResources: 3 },
+                { name: 'Finnish', difficulty: 5, culturalSignificance: 2, literature: 2, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 3, onlineResources: 3 },
+                { name: 'Romanian', difficulty: 2, culturalSignificance: 2, literature: 3, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 2, onlineResources: 3 },
+                { name: 'Hungarian', difficulty: 5, culturalSignificance: 2, literature: 3, globalSpeakers: 1, germanSpeakers: 1, economicOutput: 2, onlineResources: 3 },
             ];
 
+            // Default weights updated
             const categories = {
                 difficulty: { label: 'Difficulty (Easier is better)', default: 1, invert: true },
-                culturalSignificance: { label: 'Cultural Impact', default: 1, invert: false },
-                literature: { label: 'Literature/Philosophy', default: 1, invert: false },
-                globalSpeakers: { label: 'Global Speakers', default: 1, invert: false },
+                culturalSignificance: { label: 'Cultural Impact', default: 2, invert: false },
+                literature: { label: 'Literature & Philosophy', default: 2, invert: false },
+                globalSpeakers: { label: 'Global Speakers', default: 2, invert: false },
+                economicOutput: { label: 'Economic Power', default: 2, invert: false },
                 germanSpeakers: { label: 'Speakers (Germany)', default: 0.5, invert: false },
-                economicOutput: { label: 'Economic Power', default: 1, invert: false },
-                travelOpportunity: { label: 'Travel Opportunity', default: 1, invert: false },
                 onlineResources: { label: 'Online Resources', default: 1, invert: false }
             };
 
@@ -351,31 +444,44 @@
             };
 
             const loadState = () => {
-                const savedWeights = localStorage.getItem('languageWeights');
-                if (savedWeights) {
-                    state.weights = JSON.parse(savedWeights);
-                } else {
-                    for (const key in categories) {
+                try {
+                    const savedWeights = localStorage.getItem('languageWeights_v3');
+                    if (savedWeights) {
+                        state.weights = JSON.parse(savedWeights);
+                        for (const key in categories) {
+                            if (state.weights[key] === undefined) {
+                                state.weights[key] = categories[key].default;
+                            }
+                        }
+                    } else {
+                        throw new Error("No saved weights");
+                    }
+                } catch (e) {
+                     for (const key in categories) {
                         state.weights[key] = categories[key].default;
                     }
                 }
 
-                const savedPinned = localStorage.getItem('pinnedLanguages');
-                if (savedPinned) {
-                    state.pinned = JSON.parse(savedPinned);
+                try {
+                    const savedPinned = localStorage.getItem('pinnedLanguages_v3');
+                    if (savedPinned) {
+                        state.pinned = JSON.parse(savedPinned);
+                    }
+                } catch (e) {
+                    state.pinned = [];
                 }
             };
 
-            const saveWeights = () => localStorage.setItem('languageWeights', JSON.stringify(state.weights));
-            const savePinned = () => localStorage.setItem('pinnedLanguages', JSON.stringify(state.pinned));
+            const saveWeights = () => localStorage.setItem('languageWeights_v3', JSON.stringify(state.weights));
+            const savePinned = () => localStorage.setItem('pinnedLanguages_v3', JSON.stringify(state.pinned));
 
             // --- CORE LOGIC ---
             const calculateScore = (language) => {
                 let score = 0;
                 for (const key in categories) {
+                    if(!language[key]) continue; // Skip if a category is removed from a language
                     const value = language[key];
                     const weight = state.weights[key];
-                    // For difficulty, a lower score is better, so we invert it.
                     const effectiveValue = categories[key].invert ? (6 - value) : value;
                     score += effectiveValue * weight;
                 }
@@ -400,7 +506,6 @@
                 });
             };
 
-
             // --- DOM MANIPULATION / RENDERING ---
             const renderWeights = () => {
                 const container = document.getElementById('weightsContainer');
@@ -411,8 +516,8 @@
                     const control = document.createElement('div');
                     control.className = 'weight-control';
                     control.innerHTML = `
-                        <label for="${key}Slider">${label} <span id="${key}Value">${value}x</span></label>
-                        <input type="range" id="${key}Slider" data-key="${key}" min="0" max="2" step="0.1" value="${value}">
+                        <label for="${key}Slider">${label} <span id="${key}Value">${Number(value).toFixed(1)}x</span></label>
+                        <input type="range" id="${key}Slider" data-key="${key}" min="0" max="3" step="0.1" value="${value}">
                     `;
                     container.appendChild(control);
                 }
@@ -421,23 +526,18 @@
             const renderTable = () => {
                 const tableBody = document.getElementById('tableBody');
                 
-                // 1. Filter
                 let processedLanguages = languages.filter(lang =>
                     lang.name.toLowerCase().includes(state.searchTerm.toLowerCase())
                 );
                 
-                // 2. Calculate scores
                 processedLanguages.forEach(calculateScore);
                 
-                // 3. Separate pinned from unpinned
                 const pinnedLangs = processedLanguages.filter(lang => state.pinned.includes(lang.name));
                 const unpinnedLangs = processedLanguages.filter(lang => !state.pinned.includes(lang.name));
 
-                // 4. Sort both lists
                 sortLanguages(pinnedLangs);
                 sortLanguages(unpinnedLangs);
 
-                // 5. Combine and render
                 const allLangs = [...pinnedLangs, ...unpinnedLangs];
                 tableBody.innerHTML = allLangs.map(lang => createRow(lang)).join('');
             };
@@ -454,17 +554,16 @@
                 const isPinned = state.pinned.includes(lang.name);
                 return `
                     <tr class="${isPinned ? 'pinned' : ''}" data-lang-name="${lang.name}">
-                        <td><button class="pin-btn" title="Pin language">${isPinned ? '📌' : '📍'}</button></td>
-                        <td class="language-name">${lang.name}</td>
-                        <td>${createScoreDots(lang.difficulty)}</td>
-                        <td>${createScoreDots(lang.culturalSignificance)}</td>
-                        <td>${createScoreDots(lang.literature)}</td>
-                        <td>${createScoreDots(lang.globalSpeakers)}</td>
-                        <td>${createScoreDots(lang.germanSpeakers)}</td>
-                        <td>${createScoreDots(lang.economicOutput)}</td>
-                        <td>${createScoreDots(lang.travelOpportunity)}</td>
-                        <td>${createScoreDots(lang.onlineResources)}</td>
-                        <td class="final-score">${lang.score.toFixed(2)}</td>
+                        <td data-label="Pin"><button class="pin-btn" title="Pin language">${isPinned ? '📌' : '📍'}</button></td>
+                        <td data-label="Language" class="language-name-cell"><span class="language-name">${lang.name}</span></td>
+                        <td data-label="Difficulty">${createScoreDots(lang.difficulty)}</td>
+                        <td data-label="Cultural Impact">${createScoreDots(lang.culturalSignificance)}</td>
+                        <td data-label="Literature & Philosophy">${createScoreDots(lang.literature)}</td>
+                        <td data-label="Global Speakers">${createScoreDots(lang.globalSpeakers)}</td>
+                        <td data-label="Speakers (Germany)">${createScoreDots(lang.germanSpeakers)}</td>
+                        <td data-label="Economic Power">${createScoreDots(lang.economicOutput)}</td>
+                        <td data-label="Online Resources">${createScoreDots(lang.onlineResources)}</td>
+                        <td data-label="Final Score"><span class="final-score">${lang.score.toFixed(2)}</span></td>
                     </tr>
                 `;
             };
@@ -476,7 +575,7 @@
                         if (th.dataset.sort === state.sort.column) {
                             indicator.textContent = state.sort.direction === 'asc' ? '▲' : '▼';
                         } else {
-                            indicator.textContent = ' ';
+                            indicator.textContent = '';
                         }
                     }
                 });
