@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Multi-Model LLM Console</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div class="brand-copy">
+          <h1>Multi-Model Studio</h1>
+          <p class="tagline">Orchestrate leading LLMs with a single brief.</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="historyToggle" class="ghost-btn" type="button">Saved Runs</button>
+        <button id="settingsToggle" class="ghost-btn" type="button">API Keys</button>
+      </div>
+    </header>
+
+    <main class="main-area">
+      <section class="prompt-panel" aria-label="Prompt composer">
+        <div class="prompt-header">
+          <h2>Compose</h2>
+          <div class="mode-switch" role="group" aria-label="Model mode">
+            <button type="button" class="mode-pill active" data-mode="standard">Precision</button>
+            <button type="button" class="mode-pill" data-mode="reasoning">Reasoning</button>
+          </div>
+        </div>
+          <div class="prompt-input-wrap">
+          <textarea id="promptInput" class="prompt-input" rows="6" placeholder="Describe the task once to brief every model. Enter sends | Shift + Enter adds a line." spellcheck="true"></textarea>
+            <div class="input-actions">
+              <div class="toggles">
+                <label class="toggle">
+                  <input type="checkbox" id="tripleRunToggle">
+                  <span class="toggle-switch" aria-hidden="true"></span>
+                  <span class="toggle-label">Triple run</span>
+                </label>
+              </div>
+              <div class="primary-actions">
+                <button id="saveConversation" class="ghost-btn" type="button">Save Snapshot</button>
+                <button id="clearPrompt" class="ghost-btn" type="button">Clear</button>
+              <button id="submitPrompt" class="primary-btn" type="button">Send Prompt</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="responses" aria-live="polite" aria-label="Model responses">
+        <div id="responseGrid" class="response-grid"></div>
+      </section>
+    </main>
+  </div>
+
+  <aside id="historyPanel" class="side-panel" aria-hidden="true">
+    <div class="panel-header">
+      <h3>Saved Sessions</h3>
+      <button class="ghost-btn small" id="closeHistory" type="button">Close</button>
+    </div>
+    <div id="historyList" class="panel-content"></div>
+  </aside>
+
+  <aside id="settingsPanel" class="side-panel" aria-hidden="true">
+    <div class="panel-header">
+      <h3>API Keys</h3>
+      <button class="ghost-btn small" id="closeSettings" type="button">Close</button>
+    </div>
+    <form id="settingsForm" class="panel-content">
+      <div class="field">
+        <label for="openaiKey">OpenAI API Key</label>
+        <input id="openaiKey" type="password" autocomplete="off" placeholder="sk-..." />
+      </div>
+      <div class="field">
+        <label for="deepseekKey">DeepSeek API Key</label>
+        <input id="deepseekKey" type="password" autocomplete="off" placeholder="ds-..." />
+      </div>
+      <div class="field">
+        <label for="googleKey">Google API Key</label>
+        <input id="googleKey" type="password" autocomplete="off" placeholder="AIza..." />
+      </div>
+      <p class="help-text">Keys are stored locally in this browser only.</p>
+      <div class="panel-actions">
+        <button class="ghost-btn" id="clearKeys" type="button">Clear</button>
+        <button class="primary-btn" type="submit">Save</button>
+      </div>
+    </form>
+  </aside>
+
+  <div id="overlay" class="overlay" hidden></div>
+
+  <script src="app.js" type="module"></script>
+</body>
+</html>
